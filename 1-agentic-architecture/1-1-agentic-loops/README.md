@@ -2,6 +2,8 @@
 
 > **In one line:** an agentic loop is a normal `for`/`while` loop in *your* code that keeps talking to Claude, runs the tools Claude asks for, and stops when Claude says it is finished.
 
+**[Take the interactive quiz online](https://pranavdhopey.github.io/ccar-f-study-guide/1-agentic-architecture/1-1-agentic-loops/quiz.html)** (11 exam-style questions, opens in your browser)
+
 ![Handwritten notes: the agentic loop](notes.png)
 
 ---
@@ -126,7 +128,7 @@ What to notice:
 
 11 exam-style questions on this topic (10 on the exam's keyed content, 1 bonus on `refusal`):
 
-- **[`quiz.html`](quiz.html)** is the interactive version: pick an answer and it shows why it is right or wrong, with a running score. It is a single file with no dependencies, so download it and open it in a browser, or serve it with GitHub Pages.
+- **[Interactive quiz (live link)](https://pranavdhopey.github.io/ccar-f-study-guide/1-agentic-architecture/1-1-agentic-loops/quiz.html)**: pick an answer and it shows why it is right or wrong, with a running score. The source file is [`quiz.html`](quiz.html), a single file with no dependencies, so you can also download it and open it in a browser.
 - **[`quiz.md`](quiz.md)** is the same questions with click-to-reveal answers. It works directly in GitHub's file preview.
 
 Both are generated from `quiz.json`. To add or edit a question, change that file and run `python tools/build_quiz.py 1-agentic-architecture/1-1-agentic-loops` from the repo root.
