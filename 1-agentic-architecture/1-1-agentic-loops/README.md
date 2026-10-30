@@ -2,7 +2,7 @@
 
 > **In one line:** an agentic loop is a normal `for`/`while` loop in *your* code that keeps talking to Claude, runs the tools Claude asks for, and stops when Claude says it is finished.
 
-![Handwritten notes: the agentic loop](agentic-loop-notes.png)
+![Handwritten notes: the agentic loop](notes.png)
 
 ---
 
@@ -129,7 +129,7 @@ What to notice:
 - **[`quiz.html`](quiz.html)** is the interactive version: pick an answer and it shows why it is right or wrong, with a running score. It is a single file with no dependencies, so download it and open it in a browser, or serve it with GitHub Pages.
 - **[`quiz.md`](quiz.md)** is the same questions with click-to-reveal answers. It works directly in GitHub's file preview.
 
-Both are generated from `quiz.json`. To add or edit a question, change that file and run `python build_quiz.py`.
+Both are generated from `quiz.json`. To add or edit a question, change that file and run `python tools/build_quiz.py 1-agentic-architecture/1-1-agentic-loops` from the repo root.
 
 ---
 
@@ -156,19 +156,23 @@ Rule of thumb: anything that is **not** `end_turn` means "not finished, find out
 - Always append tool results to history. Don't replace history with a summary to save tokens; shrink what the *tool returns* instead.
 - Model-driven tool selection is the default; use programmatic enforcement only for must-comply business rules.
 
-## Files
+## Files in this folder
 
 | File | What it is |
 |---|---|
-| `agentic-loop-notes.png` | The handwritten-style notes |
-| `notes.html` + `render.py` | Source for the notes image (edit the HTML, run `python render.py`; needs `playwright`) |
+| `README.md` | This explanation |
+| `notes.png` | The handwritten-style notes |
+| `notes.html` | Source for the notes image. Edit it, then run `python tools/render_notes.py 1-agentic-architecture/1-1-agentic-loops` from the repo root (needs `playwright`) |
 | `agentic_loop.py` | The whole loop in about 40 lines, using the real API |
 | `quiz.html` | Interactive practice questions (open in a browser) |
 | `quiz.md` | The same questions with click-to-reveal answers (renders on GitHub) |
-| `quiz.json` + `build_quiz.py` | Question source, and the script that generates the two quiz files |
-| `fonts/` | Caveat and Kalam handwriting fonts (SIL Open Font License) |
+| `quiz.json` | Question source. `tools/build_quiz.py` turns it into the two quiz files |
 
 ## Sources
 - [CCAR-F Guide: 1.1 Agentic Loops](https://claudecertificationguide.com/learn/1-agentic-architecture/1-1-agentic-loops)
 - [Anthropic: Tool use overview](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview)
 - [Anthropic: Messages API reference](https://platform.claude.com/docs/en/api/messages)
+
+---
+
+[Back to Domain 1](../README.md) &nbsp;|&nbsp; Next topic: 1.2 Multi-Agent Orchestration (coming soon)

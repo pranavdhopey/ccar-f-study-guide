@@ -1,0 +1,218 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+@font-face { font-family: 'Caveat'; font-weight: 400; src: url('../../assets/fonts/caveat-latin-400-normal.woff2'); }
+@font-face { font-family: 'Caveat'; font-weight: 700; src: url('../../assets/fonts/caveat-latin-700-normal.woff2'); }
+@font-face { font-family: 'Kalam'; font-weight: 400; src: url('../../assets/fonts/kalam-latin-400-normal.woff2'); }
+@font-face { font-family: 'Kalam'; font-weight: 700; src: url('../../assets/fonts/kalam-latin-700-normal.woff2'); }
+
+:root {
+  --ink: #1f3a8a;
+  --red: #c0262d;
+  --green: #1d7a46;
+  --hl: #fff176;
+  --paper: #fdfbf2;
+  --line: #bcd3ee;
+  --margin: #e88a8a;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: #d9d4c7; font-family: 'Caveat', cursive; color: var(--ink); }
+.page {
+  width: 1500px; margin: 0 auto; padding: 60px 70px 50px 150px; position: relative;
+  background-color: var(--paper);
+  background-image: repeating-linear-gradient(to bottom, transparent 0, transparent 43px, var(--line) 43px, var(--line) 44px);
+  background-position: 0 30px;
+  font-size: 31px; line-height: 44px;
+}
+.page::before { /* margin line */
+  content: ''; position: absolute; left: 112px; top: 0; bottom: 0; width: 3px; background: var(--margin); opacity: .8;
+}
+.holes { position: absolute; left: 30px; top: 0; bottom: 0; width: 40px; }
+.holes span { position: absolute; left: 0; width: 34px; height: 34px; border-radius: 50%; background: #d9d4c7; box-shadow: inset 2px 3px 5px rgba(0,0,0,.25); }
+
+h1 { font-family: 'Kalam', cursive; font-weight: 700; font-size: 82px; line-height: 88px; margin: 0; color: var(--ink); }
+.sub { font-size: 34px; color: #555; margin-top: -4px; }
+h2 { font-family: 'Kalam', cursive; font-weight: 700; font-size: 44px; line-height: 44px; margin: 22px 0 8px; display: inline-block; position: relative; }
+h2 .num { display:inline-block; width: 54px; height: 54px; line-height: 50px; text-align:center; border: 3px solid var(--ink); border-radius: 50%; margin-right: 12px; font-size: 34px; transform: rotate(-4deg); }
+.hl { background: linear-gradient(transparent 12%, var(--hl) 12%, var(--hl) 88%, transparent 88%); padding: 0 6px; }
+.red { color: var(--red); font-weight: 700; }
+.green { color: var(--green); font-weight: 700; }
+b { font-weight: 700; }
+code, .code { font-family: 'Kalam', cursive; font-weight: 700; background: rgba(31,58,138,.08); padding: 0 8px; border-radius: 6px; font-size: 29px; }
+.box { border: 3.5px solid var(--ink); border-radius: 18px 24px 16px 26px / 24px 16px 26px 18px; padding: 12px 26px; background: rgba(255,255,255,.55); }
+.box.red { border-color: var(--red); color: var(--ink); }
+.box.green { border-color: var(--green); }
+.box.dash { border-style: dashed; }
+.row { display: flex; gap: 34px; align-items: flex-start; }
+.col { flex: 1; }
+ul { margin: 0; padding-left: 40px; list-style: none; }
+ul li { position: relative; }
+ul li::before { content: '\2022'; position: absolute; left: -28px; color: var(--ink); font-weight: 700; }
+.x li::before { content: 'X'; color: var(--red); font-weight: 700; left: -34px; }
+.ok li::before { content: 'OK'; color: var(--green); font-weight: 700; left: -48px; font-size: 24px; }
+.formula { font-family: 'Kalam', cursive; font-weight: 700; font-size: 40px; text-align: center; margin: 6px 0; }
+.tag { display: inline-block; transform: rotate(-3deg); background: var(--hl); padding: 0 14px; border-radius: 6px; font-weight: 700; }
+.note { color: #6b4a00; }
+.spacer { height: 14px; }
+.footer { text-align:center; margin-top: 20px; color:#555; font-size: 28px; }
+.sticky { position: absolute; background: #ffe88a; padding: 10px 20px; width: 340px; transform: rotate(3deg); box-shadow: 4px 6px 10px rgba(0,0,0,.2); font-size: 29px; line-height: 36px; }
+table { border-collapse: collapse; margin: 6px 0; font-size: 28px; line-height: 38px; }
+td { border: 2.5px solid var(--ink); padding: 2px 16px; }
+td:first-child { font-family:'Kalam'; font-weight:700; font-size: 26px; }
+svg text { font-family: 'Caveat', cursive; }
+</style>
+</head>
+<body>
+<div class="page" id="page">
+  <div class="holes"><span style="top:140px"></span><span style="top:760px"></span><span style="top:1380px"></span><span style="top:2000px"></span></div>
+
+  <h1>The Agentic Loop <svg width="120" height="70" viewBox="0 0 120 70" style="vertical-align:-8px"><g fill="none" stroke="#c0262d" stroke-width="5" stroke-linecap="round"><path d="M20 38 C20 12, 70 8, 92 28 C110 44, 84 62, 60 54 C40 47, 50 30, 66 32"/><path d="M60 26 L68 34 L56 40"/></g></svg></h1>
+  <div class="sub">CCAR-F &nbsp;&middot;&nbsp; Domain 1: Agentic Architecture &nbsp;&middot;&nbsp; Task 1.1 &nbsp;&middot;&nbsp; <span class="tag">27% of exam is Domain 1</span></div>
+
+  <div class="spacer"></div>
+  <h2><span class="num">1</span>What is it? (in plain words)</h2>
+  <div class="row">
+    <div class="col">
+      <ul>
+        <li>Claude alone: <b>1 question &rarr; 1 answer</b>. It can only talk.</li>
+        <li>To <i>do</i> things (look up an order) it needs <span class="hl">tools</span> = functions in <b>my code</b>.</li>
+        <li><span class="red">Claude never runs a tool.</span> It only <b>asks</b> for one. My code runs it and sends the result back.</li>
+        <li>The code that keeps repeating this = the <span class="hl">agentic loop</span>. It is normal code (control flow), <b>not</b> a prompt trick, not a retry loop.</li>
+      </ul>
+    </div>
+    <div class="box" style="width: 470px; margin-top: 8px;">
+      <div class="formula">Agent =</div>
+      <div class="formula" style="font-size:36px; line-height:46px;">Claude<br>+ Tools<br>+ Loop code</div>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+  <h2><span class="num">2</span>The 4 steps (repeat until done)</h2>
+
+  <svg width="1280" height="520" viewBox="0 0 1280 520" id="diagram">
+    <defs>
+      <filter id="wobble"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="5"/></filter>
+      <marker id="ah" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M1 1 L10 6 L1 11" fill="none" stroke="#1f3a8a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></marker>
+      <marker id="ahg" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M1 1 L10 6 L1 11" fill="none" stroke="#1d7a46" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></marker>
+    </defs>
+    <g filter="url(#wobble)" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke-width="4">
+      <!-- box 1 -->
+      <rect x="10" y="190" width="290" height="130" rx="18" stroke="#1f3a8a" fill="rgba(255,255,255,.6)"/>
+      <!-- box 2 diamond -->
+      <path d="M470 255 L585 170 L700 255 L585 340 Z" stroke="#1f3a8a" fill="#fff9c4"/>
+      <!-- box 3 -->
+      <rect x="810" y="40" width="440" height="150" rx="18" stroke="#1f3a8a" fill="rgba(255,255,255,.6)"/>
+      <!-- box 4 -->
+      <rect x="860" y="370" width="390" height="120" rx="18" stroke="#1d7a46" fill="rgba(200,240,210,.55)"/>
+      <!-- arrows -->
+      <path d="M302 255 L466 255" stroke="#1f3a8a" marker-end="url(#ah)"/>
+      <path d="M640 205 C700 120, 740 100, 806 105" stroke="#1f3a8a" marker-end="url(#ah)"/>
+      <path d="M640 305 C700 380, 780 420, 856 430" stroke="#1d7a46" marker-end="url(#ahg)"/>
+      <!-- loop back from box 3 to box 1 -->
+      <path d="M1030 42 C1000 -2, 300 -6, 160 36 C130 46, 150 150, 156 186" stroke="#c0262d" stroke-dasharray="3 12" marker-end="url(#ah)"/>
+    </g>
+    <g font-size="34" fill="#1f3a8a" text-anchor="middle">
+      <text x="155" y="232" font-weight="700" font-size="38">1. SEND request</text>
+      <text x="155" y="270" font-size="30">to Messages API</text>
+      <text x="155" y="304" font-size="28" fill="#555">(full history + tools)</text>
+
+      <text x="585" y="240" font-weight="700" font-size="36">2. CHECK</text>
+      <text x="585" y="280" font-weight="700" font-size="34" fill="#c0262d">stop_reason</text>
+
+      <text x="1030" y="85" font-weight="700" font-size="38">3. RUN the tool(s)</text>
+      <text x="1030" y="126" font-size="30">add the result to the</text>
+      <text x="1030" y="162" font-size="30">conversation history</text>
+
+      <text x="1055" y="418" font-weight="700" font-size="38" fill="#1d7a46">4. DONE</text>
+      <text x="1055" y="458" font-size="30" fill="#1d7a46">show final answer</text>
+    </g>
+    <!-- labels on arrows -->
+    <g font-size="34" font-weight="700">
+      <text x="668" y="112" fill="#1f3a8a" transform="rotate(-24 668 112)" font-size="36">"tool_use"</text>
+      <text x="700" y="410" fill="#1d7a46" transform="rotate(22 700 410)" font-size="36">"end_turn"</text>
+      <text x="470" y="40" fill="#c0262d" font-size="32">go round again!</text>
+    </g>
+    <!-- tiny glazier example -->
+    <text x="30" y="440" font-size="29" fill="#6b4a00">Example: "When is my fitting date?"</text>
+    <text x="30" y="474" font-size="27" fill="#6b4a00">tool_use (order) &rarr; tool_use (diary) &rarr; end_turn</text>
+  </svg>
+
+  <div class="row">
+    <div class="box green col">
+      <span class="green">tool_use</span> = Claude wants a tool &rarr; <b>keep going</b><br>
+      <span class="green">end_turn</span> = Claude is finished &rarr; <b>stop</b>
+    </div>
+    <div class="box col" style="border-color: var(--red)">
+      Step 3 is where loops <span class="red">break</span>: if I forget to append the tool result, the API has <b>no memory</b>. Claude never sees it!
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+  <h2><span class="num">3</span>Golden rule</h2>
+  <div class="box dash" style="text-align:center; font-size: 36px;">
+    <span class="hl"><b>stop_reason</b> is the ONLY reliable signal for loop control.</span><br>
+    It is deterministic and unambiguous.
+  </div>
+
+  <div class="spacer"></div>
+  <h2><span class="num">4</span>Who picks the tool?</h2>
+  <div class="row">
+    <div class="col box">
+      <b>Model-driven</b> (default, exam-favoured)<br>
+      Claude reads the task and chooses tools &rarr; handles surprises, chains tools in orders nobody planned.
+    </div>
+    <div class="col box">
+      <b>Fixed decision tree</b> (developer hard-codes it)<br>
+      Only when rules <i>must</i> be followed: money, security, regulations. Code enforces it <span class="note">(see 1.4)</span>.
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+  <h2><span class="num">5</span>3 anti-patterns (never the main stop signal)</h2>
+  <div class="box red">
+    <ul class="x">
+      <li><b>Parse the words.</b> "I'm done", "task complete". Language is vague: "I finished file 1" may mean "file 2 next".</li>
+      <li><b>Iteration cap as the boss.</b> "Stop after 10 loops". Cuts off real work or wastes loops.</li>
+      <li><b>Text = finished.</b> <code>content[0].type == "text"</code>. Claude often sends text <i>and</i> a tool call together.</li>
+    </ul>
+  </div>
+  <div class="row" style="margin-top: 12px;">
+    <div class="box col">
+      <b>Premature-exit bug:</b> Claude says "Let me look up your order" + a tool_use block. Code sees text first, thinks finished, returns half an answer.
+    </div>
+    <div class="box green col" style="">
+      <b>Fix:</b> check <code>stop_reason</code>, never the content type. Continue on <span class="green">tool_use</span>, stop on <span class="green">end_turn</span>.
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+  <h2><span class="num">6</span>Exam traps</h2>
+  <ul>
+    <li><span class="red">Caps</span> are a <b>safety net</b> for runaway agents (e.g. 20), <span class="hl">never</span> the fix for stopping too early.</li>
+    <li>Do not drop tool results or swap history for a summary to save tokens. Shrink what the <i>tool returns</i> instead.</li>
+    <li>Right answer pattern: <b>continue on tool_use, end on end_turn, reject all 3 anti-patterns.</b></li>
+  </ul>
+
+  <div class="spacer"></div>
+  <h2><span class="num">7</span>Bonus: beyond the exam values</h2>
+  <div class="row">
+    <div class="col">
+      <table>
+        <tr><td>pause_turn</td><td>long server-tool turn, continue it</td></tr>
+        <tr><td>max_tokens</td><td>reply cut off</td></tr>
+        <tr><td>stop_sequence</td><td>hit a stop string</td></tr>
+        <tr><td>refusal</td><td>Claude declined (normal 200, not an error)</td></tr>
+        <tr><td>model_context_window_exceeded</td><td>context full, treat like max_tokens</td></tr>
+      </table>
+    </div>
+    <div class="box dash" style="width: 430px;">
+      Real loops: anything that is <b>not</b> end_turn = <span class="hl">"not finished, find out why"</span>. Don't assume it means tool_use.
+    </div>
+  </div>
+
+  <div class="footer">Memory trick: &nbsp; tool_use = <b>"keep cooking"</b> &nbsp;|&nbsp; end_turn = <b>"dinner's served"</b></div>
+</div>
+</body>
+</html>
