@@ -1,0 +1,131 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+@font-face { font-family: 'Caveat'; font-weight: 400; src: url('../../assets/fonts/caveat-latin-400-normal.woff2'); }
+@font-face { font-family: 'Caveat'; font-weight: 700; src: url('../../assets/fonts/caveat-latin-700-normal.woff2'); }
+@font-face { font-family: 'Kalam'; font-weight: 400; src: url('../../assets/fonts/kalam-latin-400-normal.woff2'); }
+@font-face { font-family: 'Kalam'; font-weight: 700; src: url('../../assets/fonts/kalam-latin-700-normal.woff2'); }
+
+:root {
+  --ink: #1f3a8a;
+  --red: #c0262d;
+  --green: #1d7a46;
+  --hl: #fff176;
+  --paper: #fdfbf2;
+  --line: #bcd3ee;
+  --margin: #e88a8a;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: #d9d4c7; font-family: 'Caveat', cursive; color: var(--ink); }
+.page {
+  width: 1500px; margin: 0 auto; padding: 60px 70px 50px 150px; position: relative;
+  background-color: var(--paper);
+  background-image: repeating-linear-gradient(to bottom, transparent 0, transparent 43px, var(--line) 43px, var(--line) 44px);
+  background-position: 0 30px;
+  font-size: 31px; line-height: 44px;
+}
+.page::before { /* margin line */
+  content: ''; position: absolute; left: 112px; top: 0; bottom: 0; width: 3px; background: var(--margin); opacity: .8;
+}
+.holes { position: absolute; left: 30px; top: 0; bottom: 0; width: 40px; }
+.holes span { position: absolute; left: 0; width: 34px; height: 34px; border-radius: 50%; background: #d9d4c7; box-shadow: inset 2px 3px 5px rgba(0,0,0,.25); }
+
+h1 { font-family: 'Kalam', cursive; font-weight: 700; font-size: 82px; line-height: 88px; margin: 0; color: var(--ink); }
+.sub { font-size: 34px; color: #555; margin-top: -4px; }
+h2 { font-family: 'Kalam', cursive; font-weight: 700; font-size: 44px; line-height: 44px; margin: 22px 0 8px; display: inline-block; position: relative; }
+h2 .num { display:inline-block; width: 54px; height: 54px; line-height: 50px; text-align:center; border: 3px solid var(--ink); border-radius: 50%; margin-right: 12px; font-size: 34px; transform: rotate(-4deg); }
+.hl { background: linear-gradient(transparent 12%, var(--hl) 12%, var(--hl) 88%, transparent 88%); padding: 0 6px; }
+.red { color: var(--red); font-weight: 700; }
+.green { color: var(--green); font-weight: 700; }
+b { font-weight: 700; }
+code, .code { font-family: 'Kalam', cursive; font-weight: 700; background: rgba(31,58,138,.08); padding: 0 8px; border-radius: 6px; font-size: 29px; }
+.box { border: 3.5px solid var(--ink); border-radius: 18px 24px 16px 26px / 24px 16px 26px 18px; padding: 12px 26px; background: rgba(255,255,255,.55); }
+.box.red { border-color: var(--red); color: var(--ink); }
+.box.green { border-color: var(--green); }
+.box.dash { border-style: dashed; }
+.row { display: flex; gap: 34px; align-items: flex-start; }
+.col { flex: 1; }
+ul { margin: 0; padding-left: 40px; list-style: none; }
+ul li { position: relative; }
+ul li::before { content: '\2022'; position: absolute; left: -28px; color: var(--ink); font-weight: 700; }
+.x li::before { content: 'X'; color: var(--red); font-weight: 700; left: -34px; }
+.ok li::before { content: 'OK'; color: var(--green); font-weight: 700; left: -48px; font-size: 24px; }
+.formula { font-family: 'Kalam', cursive; font-weight: 700; font-size: 40px; text-align: center; margin: 6px 0; }
+.tag { display: inline-block; transform: rotate(-3deg); background: var(--hl); padding: 0 14px; border-radius: 6px; font-weight: 700; }
+.note { color: #6b4a00; }
+.spacer { height: 14px; }
+.footer { text-align:center; margin-top: 20px; color:#555; font-size: 28px; }
+.sticky { position: absolute; background: #ffe88a; padding: 10px 20px; width: 340px; transform: rotate(3deg); box-shadow: 4px 6px 10px rgba(0,0,0,.2); font-size: 29px; line-height: 36px; }
+table { border-collapse: collapse; margin: 6px 0; font-size: 28px; line-height: 38px; }
+td { border: 2.5px solid var(--ink); padding: 2px 16px; }
+td:first-child { font-family:'Kalam'; font-weight:700; font-size: 26px; }
+svg text { font-family: 'Caveat', cursive; }
+</style>
+</head>
+<body>
+<div class="page" id="page">
+  <div class="holes"><span style="top:140px"></span><span style="top:760px"></span><span style="top:1380px"></span></div>
+
+  <h1>The Loop in Practice</h1>
+  <div class="sub">CCAR-F &nbsp;&middot;&nbsp; Task 1.1 &nbsp;&middot;&nbsp; page 2 &nbsp;&middot;&nbsp; <span class="tag">what the examples show you</span></div>
+
+  <div class="spacer"></div>
+  <h2><span class="num">1</span>The messages list, round by round <span style="font-size:30px">(example 2)</span></h2>
+  <table style="width:100%">
+    <tr style="background:rgba(31,58,138,.08)"><td>Round</td><td>Sent to Claude</td><td>Claude replies</td><td>Your code then...</td></tr>
+    <tr><td>1</td><td>1 message<br>(the question)</td><td><span class="red">tool_use</span> &rarr; lookup_order</td><td>appends 2 &rarr; list now has <b>3</b></td></tr>
+    <tr><td>2</td><td>3 messages</td><td><span class="red">tool_use</span> &rarr; check_diary</td><td>appends 2 &rarr; list now has <b>5</b></td></tr>
+    <tr><td>3</td><td>5 messages</td><td><span class="green">end_turn</span> &rarr; the answer</td><td>stops. Nothing to append.</td></tr>
+  </table>
+  <div class="box" style="margin-top:10px">
+    <b>+2 per tool round:</b> Claude's request (assistant) and your <code>tool_result</code> (user). The API remembers <b>nothing</b>, so send the <span class="hl">whole</span> list every time.
+  </div>
+
+  <div class="spacer"></div>
+  <h2><span class="num">2</span>Three loops that break <span style="font-size:30px">(example 3)</span></h2>
+  <table style="width:100%">
+    <tr style="background:rgba(192,38,45,.10)"><td>Bug</td><td>What you see</td><td>Fix</td></tr>
+    <tr><td>"text means done"</td><td>Customer gets only <i>"Let me look up your order."</i></td><td>check <code>stop_reason</code></td></tr>
+    <tr><td>results not appended</td><td>Claude asks for the <b>same</b> tool again and again</td><td>append the assistant message + tool_result every round</td></tr>
+    <tr><td>cap as the main stop</td><td>Cut off mid-task, <b>no answer</b></td><td><code>stop_reason</code> decides; cap is a backup</td></tr>
+  </table>
+
+  <div class="spacer"></div>
+  <h2><span class="num">3</span>The safety cap: rules <span style="font-size:30px">(example 4)</span></h2>
+  <div class="row">
+    <div class="col box green">
+      <span class="green">OK</span><br>
+      &bull; <code>MAX_ITERATIONS = 20</code> as a backup<br>
+      &bull; a counter + a <b>warning log</b> if it fires<br>
+      &bull; normal runs end by <code>end_turn</code> (about 3 rounds)
+    </div>
+    <div class="col box red">
+      <span class="red">NOT OK</span><br>
+      &bull; the cap as how you normally stop<br>
+      &bull; the cap as the fix for stopping <i>early</i><br>
+      &bull; if it fires, <b>something is wrong</b>: investigate
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+  <h2><span class="num">4</span>Real agents <span style="font-size:30px">(example 5)</span></h2>
+  <div class="row">
+    <div class="col box">
+      <b>Parallel tool calls</b><br>
+      One reply can hold <b>several</b> tool_use blocks. Run them all, send <span class="hl">all</span> results back in <b>one</b> user message, matched by <code>tool_use_id</code>.
+    </div>
+    <div class="col box">
+      <b>A tool fails?</b><br>
+      Don't crash. Send a <code>tool_result</code> with the error text and <code>is_error: true</code>. Claude can adapt.
+    </div>
+  </div>
+  <div class="box dash" style="margin-top:12px">
+    <b>Any other stop_reason</b> (<code>max_tokens</code>, <code>refusal</code>...): not finished normally. <span class="hl">Stop and look.</span> Never assume it means tool_use.
+  </div>
+
+  <div class="footer">Run the examples in order: &nbsp; <b>01 &rarr; 02 &rarr; 03 &rarr; 04 &rarr; 05</b> &nbsp;(each adds one idea)</div>
+</div>
+</body>
+</html>

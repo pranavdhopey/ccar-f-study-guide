@@ -201,3 +201,93 @@ Beyond the two exam values: a production loop receives stop_reason "refusal". Wh
 Current API docs list pause_turn, max_tokens, stop_sequence, refusal and model_context_window_exceeded as well. Treat any value other than end_turn as "not finished, check why". This is beyond what the exam guide v1.0 keys, so it is a bonus question.
 
 </details>
+
+### Q12.
+
+One reply from Claude contains two tool_use blocks (parallel tool calls). How should your loop send the results back?
+
+- **A.** As two separate user messages, one per tool call
+- **B.** As one user message holding one tool_result per tool_use block, matched by tool_use_id
+- **C.** Only the first result. Claude will ask again for the other one
+- **D.** Inside the assistant message, before sending the next request
+
+<details>
+<summary>Show answer</summary>
+
+**B.** As one user message holding one tool_result per tool_use block, matched by tool_use_id
+
+Every tool_use needs a matching tool_result with the same id, and all of them go back together in a single user message. Example 5 does exactly this.
+
+</details>
+
+### Q13.
+
+In production, your safety cap of 20 iterations fires on a request. What does that most likely tell you?
+
+- **A.** Something is probably wrong (a stuck or runaway agent), so log a warning and investigate. The cap is a backup, not a normal exit
+- **B.** Nothing unusual: tasks normally finish when they reach the cap
+- **C.** The cap is too low, so raise it to 100
+- **D.** Claude has finished, so treat it like end_turn
+
+<details>
+<summary>Show answer</summary>
+
+**A.** Something is probably wrong (a stuck or runaway agent), so log a warning and investigate. The cap is a backup, not a normal exit
+
+Normal runs end through stop_reason == "end_turn", usually in a few rounds. A cap that fires means the loop is not converging. Example 4's --runaway mode shows this.
+
+</details>
+
+### Q14.
+
+Your get_monthly_cost tool raises a KeyError for an unknown machine type. What should the loop do?
+
+- **A.** Let the exception crash the loop
+- **B.** Catch it and send a tool_result with the error text and is_error set to true, so Claude can adapt
+- **C.** Skip the tool_result for that call and carry on
+- **D.** Restart the conversation from the first message
+
+<details>
+<summary>Show answer</summary>
+
+**B.** Catch it and send a tool_result with the error text and is_error set to true, so Claude can adapt
+
+Each tool_use must get a tool_result, even a failed one. Reporting the error lets Claude explain the gap or try something else. Skipping the result would leave a tool_use unanswered, which the API rejects.
+
+</details>
+
+### Q15.
+
+A correct loop has already made two tool rounds, starting from one user question. How many messages are in the request for the third round?
+
+- **A.** 3
+- **B.** 4
+- **C.** 5
+- **D.** 6
+
+<details>
+<summary>Show answer</summary>
+
+**C.** 5
+
+1 question + 2 messages per tool round (Claude's request and your tool_result) x 2 rounds = 5. Example 2 prints this growth: 1, then 3, then 5.
+
+</details>
+
+### Q16.
+
+A loop keeps receiving stop_reason "tool_use" asking for the same lookup_order call, round after round, and never progresses. Which bug is the most likely cause?
+
+- **A.** The tool description is too long
+- **B.** max_tokens is set too high
+- **C.** Claude is unable to use that tool
+- **D.** The assistant message and tool_result are not being appended, so every request looks like round 1
+
+<details>
+<summary>Show answer</summary>
+
+**D.** The assistant message and tool_result are not being appended, so every request looks like round 1
+
+The API keeps no memory, so without the appended history Claude sees the same question each time and asks for the same tool. Example 3's "noappend" demo shows this, and why a safety cap is still worth having.
+
+</details>

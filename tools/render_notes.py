@@ -1,5 +1,6 @@
 """
-Render a topic's handwritten notes: notes.html -> notes.png
+Render a topic's handwritten notes: every notes*.html -> matching .png
+(notes.html -> notes.png, notes-2.html -> notes-2.png)
 
     python tools/render_notes.py 1-agentic-architecture/1-1-agentic-loops
 
@@ -14,16 +15,18 @@ if len(sys.argv) != 2:
     sys.exit(__doc__)
 
 topic = pathlib.Path(sys.argv[1]).resolve()
-html = topic / "notes.html"
-if not html.exists():
-    sys.exit(f"No notes.html in {topic}")
+pages = sorted(topic.glob("notes*.html"))
+if not pages:
+    sys.exit(f"No notes*.html in {topic}")
 
 with sync_playwright() as p:
     browser = p.chromium.launch()
-    page = browser.new_page(viewport={"width": 1500, "height": 1000}, device_scale_factor=1.5)
-    page.goto(html.as_uri())
-    page.wait_for_timeout(800)
-    page.evaluate("document.fonts.ready")
-    page.locator("#page").screenshot(path=str(topic / "notes.png"))
+    for html in pages:
+        page = browser.new_page(viewport={"width": 1500, "height": 1000}, device_scale_factor=1.5)
+        page.goto(html.as_uri())
+        page.wait_for_timeout(800)
+        page.evaluate("document.fonts.ready")
+        out = html.with_suffix(".png")
+        page.locator("#page").screenshot(path=str(out))
+        print(f"wrote {out}")
     browser.close()
-print(f"wrote {topic / 'notes.png'}")

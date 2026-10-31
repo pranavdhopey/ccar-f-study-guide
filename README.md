@@ -11,8 +11,8 @@ Every topic folder has the same files, so you always know where to look:
 | File | Purpose |
 |---|---|
 | `README.md` | The explanation, in simple words |
-| `notes.png` | One-page handwritten-style summary |
-| `*.py` | A small runnable example (where the topic has one) |
+| `notes.png`, `notes-2.png` | Handwritten-style summary pages |
+| `examples/` | Small runnable examples, numbered in the order to run them (where the topic has them) |
 | `quiz.html` / `quiz.md` | Exam-style practice questions: interactive, or click-to-reveal |
 
 ## Progress
@@ -41,7 +41,7 @@ tools/               render_notes.py (notes.html -> notes.png), build_quiz.py (q
 ```bash
 pip install anthropic
 export ANTHROPIC_API_KEY="your-key"     # never commit your key
-python 1-agentic-architecture/1-1-agentic-loops/agentic_loop.py
+python 1-agentic-architecture/1-1-agentic-loops/examples/01_minimal_loop.py
 ```
 
 ## Adding a new topic
