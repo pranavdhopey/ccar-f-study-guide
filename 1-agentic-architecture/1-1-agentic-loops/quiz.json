@@ -133,6 +133,66 @@
       ],
       "answer": 1,
       "explanation": "Current API docs list pause_turn, max_tokens, stop_sequence, refusal and model_context_window_exceeded as well. Treat any value other than end_turn as \"not finished, check why\". This is beyond what the exam guide v1.0 keys, so it is a bonus question."
+    },
+    {
+      "tag": "core",
+      "prompt": "One reply from Claude contains two tool_use blocks (parallel tool calls). How should your loop send the results back?",
+      "options": [
+        "As two separate user messages, one per tool call",
+        "As one user message holding one tool_result per tool_use block, matched by tool_use_id",
+        "Only the first result. Claude will ask again for the other one",
+        "Inside the assistant message, before sending the next request"
+      ],
+      "answer": 1,
+      "explanation": "Every tool_use needs a matching tool_result with the same id, and all of them go back together in a single user message. Example 5 does exactly this."
+    },
+    {
+      "tag": "core",
+      "prompt": "In production, your safety cap of 20 iterations fires on a request. What does that most likely tell you?",
+      "options": [
+        "Something is probably wrong (a stuck or runaway agent), so log a warning and investigate. The cap is a backup, not a normal exit",
+        "Nothing unusual: tasks normally finish when they reach the cap",
+        "The cap is too low, so raise it to 100",
+        "Claude has finished, so treat it like end_turn"
+      ],
+      "answer": 0,
+      "explanation": "Normal runs end through stop_reason == \"end_turn\", usually in a few rounds. A cap that fires means the loop is not converging. Example 4's --runaway mode shows this."
+    },
+    {
+      "tag": "core",
+      "prompt": "Your get_monthly_cost tool raises a KeyError for an unknown machine type. What should the loop do?",
+      "options": [
+        "Let the exception crash the loop",
+        "Catch it and send a tool_result with the error text and is_error set to true, so Claude can adapt",
+        "Skip the tool_result for that call and carry on",
+        "Restart the conversation from the first message"
+      ],
+      "answer": 1,
+      "explanation": "Each tool_use must get a tool_result, even a failed one. Reporting the error lets Claude explain the gap or try something else. Skipping the result would leave a tool_use unanswered, which the API rejects."
+    },
+    {
+      "tag": "core",
+      "prompt": "A correct loop has already made two tool rounds, starting from one user question. How many messages are in the request for the third round?",
+      "options": [
+        "3",
+        "4",
+        "5",
+        "6"
+      ],
+      "answer": 2,
+      "explanation": "1 question + 2 messages per tool round (Claude's request and your tool_result) x 2 rounds = 5. Example 2 prints this growth: 1, then 3, then 5."
+    },
+    {
+      "tag": "core",
+      "prompt": "A loop keeps receiving stop_reason \"tool_use\" asking for the same lookup_order call, round after round, and never progresses. Which bug is the most likely cause?",
+      "options": [
+        "The tool description is too long",
+        "max_tokens is set too high",
+        "Claude is unable to use that tool",
+        "The assistant message and tool_result are not being appended, so every request looks like round 1"
+      ],
+      "answer": 3,
+      "explanation": "The API keeps no memory, so without the appended history Claude sees the same question each time and asks for the same tool. Example 3's \"noappend\" demo shows this, and why a safety cap is still worth having."
     }
   ]
 }
