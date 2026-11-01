@@ -19,7 +19,7 @@ Every topic folder has the same files, so you always know where to look:
 
 | Domain | Topics | Done |
 |---|---|---|
-| [1. Agentic Architecture & Orchestration](1-agentic-architecture/) | 7 | 1 of 7 |
+| [1. Agentic Architecture & Orchestration](1-agentic-architecture/) | 7 | 2 of 7 |
 | 2. Tool Design & MCP Integration | | not started |
 | 3. Claude Code Configuration & Workflows | | not started |
 | 4. Prompt Engineering & Structured Output | | not started |

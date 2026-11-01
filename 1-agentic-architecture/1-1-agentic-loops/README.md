@@ -277,4 +277,4 @@ Rule of thumb: anything that is **not** `end_turn` means "not finished, find out
 
 ---
 
-[Back to Domain 1](../README.md) &nbsp;|&nbsp; Next topic: 1.2 Multi-Agent Orchestration (coming soon)
+[Back to Domain 1](../README.md) &nbsp;|&nbsp; Next topic: [1.2 Multi-Agent Orchestration](../1-2-orchestration-patterns/)

@@ -5,7 +5,7 @@ About 27% of the CCAR-F exam. Each topic folder holds an explanation, handwritte
 | # | Topic | Status |
 |---|---|---|
 | 1.1 | [Agentic Loops](1-1-agentic-loops/) | Done |
-| 1.2 | Multi-Agent Orchestration | Planned |
+| 1.2 | [Multi-Agent Orchestration](1-2-orchestration-patterns/) | Done |
 | 1.3 | Subagent Invocation and Context Passing | Planned |
 | 1.4 | Workflow Enforcement and Handoff | Planned |
 | 1.5 | Agent SDK Hooks | Planned |

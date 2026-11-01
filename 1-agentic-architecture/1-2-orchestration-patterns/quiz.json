@@ -1,0 +1,198 @@
+{
+  "title": "1.2 Multi-Agent Orchestration: practice questions",
+  "intro": "Exam-style questions for CCAR-F Task 1.2. Pick an answer to see why it is right or wrong.",
+  "questions": [
+    {
+      "tag": "core",
+      "prompt": "Which multi-agent architecture does the exam test?",
+      "options": [
+        "A peer-to-peer mesh where subagents message each other directly",
+        "Hub-and-spoke: a coordinator at the centre with subagents as the spokes",
+        "A single agent with no subagents",
+        "A chain where each subagent calls the next one"
+      ],
+      "answer": 1,
+      "explanation": "The exam tests one pattern: hub-and-spoke. The coordinator receives the task, splits it up, delegates, aggregates, and routes all information."
+    },
+    {
+      "tag": "core",
+      "prompt": "A synthesis subagent needs what the web search subagent found. What is the right way to get it there?",
+      "options": [
+        "The synthesis subagent reads the web search subagent's conversation history",
+        "The coordinator sets up a memory the two subagents share automatically",
+        "The web search subagent returns its findings to the coordinator, which includes them in the synthesis subagent's prompt",
+        "The web search subagent calls the synthesis subagent directly to save a step"
+      ],
+      "answer": 2,
+      "explanation": "All communication routes through the coordinator, and a subagent only knows what is in its prompt. Example 2 pastes both sets of findings into the synthesis task."
+    },
+    {
+      "tag": "core",
+      "prompt": "A coordinator has had a twenty-turn conversation with the user and now starts a new subagent. What does the subagent know about those twenty turns?",
+      "options": [
+        "Only what the coordinator writes into the subagent's prompt",
+        "All of it: subagents inherit the coordinator's conversation history",
+        "The coordinator's system prompt, but nothing else",
+        "The last five messages, automatically"
+      ],
+      "answer": 0,
+      "explanation": "Subagents do not inherit history. They have no access to the coordinator's system prompt (unless it is included), earlier messages, other subagents' results, or shared memory."
+    },
+    {
+      "tag": "core",
+      "prompt": "A multi-agent system writes a report on \"risks facing a coastal town\". It covers flooding and erosion in depth and every subagent did its assigned job well, but the report says nothing about tourism decline or an ageing population. Where is the root cause?",
+      "options": [
+        "The synthesis subagent should have invented the missing sections",
+        "The web search subagent's queries were too narrow",
+        "The subagents needed a larger context window",
+        "The coordinator's decomposition never assigned those topics to any subagent"
+      ],
+      "answer": 3,
+      "explanation": "A subtopic nobody is assigned never gets researched. When whole topics are missing (scope), suspect the decomposition first. Better queries or a smarter synthesis step cannot add an area that no subagent was given."
+    },
+    {
+      "tag": "core",
+      "prompt": "A teammate proposes letting subagents message each other directly to save time. Why does the exam treat this as the wrong answer?",
+      "options": [
+        "Subagents cannot produce text that another agent can read",
+        "It bypasses the coordinator, losing observability, consistent error handling and controlled information flow",
+        "It is slower in every case, which is its only drawback",
+        "It requires every subagent to use the same model"
+      ],
+      "answer": 1,
+      "explanation": "Even when offered as an efficiency gain, direct inter-subagent communication gives up the three benefits of a single hub."
+    },
+    {
+      "tag": "core",
+      "prompt": "A subagent returns an incomplete answer for its task. What should you check first?",
+      "options": [
+        "Whether the subagent's model is too small",
+        "Whether the synthesis subagent hid the missing part",
+        "Whether the coordinator gave it the right input, meaning the full context in its prompt",
+        "Whether the user's question was too long"
+      ],
+      "answer": 2,
+      "explanation": "Blame the origin, not the output. Subagents start blank, so incomplete output often traces back to what the coordinator did or did not pass in."
+    },
+    {
+      "tag": "core",
+      "prompt": "A user asks, \"What time does the council recycling centre open?\" How should a well-designed coordinator handle it?",
+      "options": [
+        "Invoke only the subagent(s) the question needs, here just web search",
+        "Run the full pipeline anyway so every query is handled the same way",
+        "Run every subagent in parallel and keep whichever answers first",
+        "Have the synthesis subagent answer from its own knowledge without searching"
+      ],
+      "answer": 0,
+      "explanation": "Dynamic subagent selection: analyse what the query needs and invoke only those subagents. A simple factual question needs only web search."
+    },
+    {
+      "tag": "core",
+      "prompt": "To cut costs, a team runs every query through all subagents and caches the unused results. Why does caching not fix the problem?",
+      "options": [
+        "Caching cannot be used with subagents",
+        "Cached results are always out of date",
+        "Unused results always make the final answer worse",
+        "Invoking unneeded subagents still adds latency and API overhead, so the coordinator should choose subagents per query"
+      ],
+      "answer": 3,
+      "explanation": "The cost is incurred when the unneeded subagents run, cached or not. Select the subagents each query actually needs."
+    },
+    {
+      "tag": "core",
+      "prompt": "Two subagents keep searching the same sources and return duplicate findings. Which coordinator responsibility addresses this?",
+      "options": [
+        "Iterative refinement: re-run both until their results differ",
+        "Research scope partitioning: give each subagent distinct subtopics or source types",
+        "Dynamic selection: drop one of them for every query",
+        "Communication routing: let them compare notes directly"
+      ],
+      "answer": 1,
+      "explanation": "Partition the scope so no two subagents cover the same ground. In example 4, one subagent covers the web and the other covers internal documents."
+    },
+    {
+      "tag": "core",
+      "prompt": "A synthesis draft has no section on insurance costs, though the topic needs one. What does a good coordinator do?",
+      "options": [
+        "Accept the draft and add a disclaimer",
+        "Ask the synthesis subagent to guess the insurance figures",
+        "Re-delegate a targeted search for insurance costs, then synthesise again and re-check coverage",
+        "Restart all the research from the original question"
+      ],
+      "answer": 2,
+      "explanation": "That is the iterative refinement loop: evaluate the output for gaps, re-delegate with targeted queries, and re-run synthesis until coverage is sufficient."
+    },
+    {
+      "tag": "core",
+      "prompt": "Which of these is NOT a benefit of routing all subagent communication through one coordinator?",
+      "options": [
+        "Subagents automatically share each other's memory",
+        "Every message can be logged and monitored in one place",
+        "Errors are handled with one consistent recovery policy",
+        "The coordinator controls what context each subagent receives"
+      ],
+      "answer": 0,
+      "explanation": "The benefits are observability, consistent error handling and controlled information flow. Subagents do not share memory: the coordinator passes context explicitly."
+    },
+    {
+      "tag": "core",
+      "prompt": "A subagent fails partway through its task. In hub-and-spoke, who decides how to recover (retry, re-delegate, or carry on without it)?",
+      "options": [
+        "The failed subagent, by calling another subagent itself",
+        "The user, in every case",
+        "The next subagent in the chain",
+        "The coordinator, applying a consistent recovery policy"
+      ],
+      "answer": 3,
+      "explanation": "Handling errors is one of the coordinator's responsibilities, which is what makes recovery consistent across subagents."
+    },
+    {
+      "tag": "core",
+      "prompt": "A web search subagent is invoked twice in one run, and the second invocation needs to know what the first one found. What must the coordinator do?",
+      "options": [
+        "Nothing: subagents share memory between invocations",
+        "Include the first invocation's findings in the second invocation's prompt",
+        "Nothing: the API remembers earlier calls",
+        "Rename the subagent so it is recognised the second time"
+      ],
+      "answer": 1,
+      "explanation": "Subagents do not share memory between invocations. A second invocation knows nothing about the first unless the coordinator passes it along. Example 1, run C, shows this."
+    },
+    {
+      "tag": "core",
+      "prompt": "A report has a section on geothermal energy that is shallow, while the solar section is detailed. The coordinator assigned both subtopics. What should you suspect first?",
+      "options": [
+        "A missing subtopic in the decomposition",
+        "The solar subagent using up the shared memory",
+        "What that subagent was told and given: its prompt, tools and context for geothermal",
+        "The report's formatting"
+      ],
+      "answer": 2,
+      "explanation": "The subtopic was assigned, so decomposition is not the problem. A thin section is a depth problem: look at that subagent's instructions, tools and context. A missing section is a scope problem and points to the decomposition."
+    },
+    {
+      "tag": "core",
+      "prompt": "An iterative refinement loop re-delegates to fill coverage gaps. How should it end?",
+      "options": [
+        "When coverage is sufficient, with a maximum number of rounds as a safety bound",
+        "After exactly one round, always",
+        "Only when it reaches the maximum number of rounds",
+        "When the synthesis subagent writes \"done\""
+      ],
+      "answer": 0,
+      "explanation": "Like the loop in 1.1, it should end on its real signal (sufficient coverage), with a maximum round count as a backup. Example 4 stops at 3 refinements with a warning."
+    },
+    {
+      "tag": "bonus",
+      "prompt": "A study note says subagents can never spawn other subagents. According to the lesson's current-state note, how accurate is that?",
+      "options": [
+        "Fully accurate in every Claude product",
+        "Wrong: subagents can spawn an unlimited number of layers",
+        "Accurate, but only for web search subagents",
+        "A simplification for the exam: in Claude Code a subagent can spawn subagents, up to three layers below the main conversation"
+      ],
+      "answer": 3,
+      "explanation": "The lesson notes this as the current state (checked October 2026). The exam still keys hub-and-spoke, so answer exam questions with the coordinator at the centre."
+    }
+  ]
+}

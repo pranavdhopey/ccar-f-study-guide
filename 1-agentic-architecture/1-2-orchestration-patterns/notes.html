@@ -1,0 +1,182 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+@font-face { font-family: 'Caveat'; font-weight: 400; src: url('../../assets/fonts/caveat-latin-400-normal.woff2'); }
+@font-face { font-family: 'Caveat'; font-weight: 700; src: url('../../assets/fonts/caveat-latin-700-normal.woff2'); }
+@font-face { font-family: 'Kalam'; font-weight: 400; src: url('../../assets/fonts/kalam-latin-400-normal.woff2'); }
+@font-face { font-family: 'Kalam'; font-weight: 700; src: url('../../assets/fonts/kalam-latin-700-normal.woff2'); }
+
+:root {
+  --ink: #1f3a8a;
+  --red: #c0262d;
+  --green: #1d7a46;
+  --hl: #fff176;
+  --paper: #fdfbf2;
+  --line: #bcd3ee;
+  --margin: #e88a8a;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: #d9d4c7; font-family: 'Caveat', cursive; color: var(--ink); }
+.page {
+  width: 1500px; margin: 0 auto; padding: 60px 70px 50px 150px; position: relative;
+  background-color: var(--paper);
+  background-image: repeating-linear-gradient(to bottom, transparent 0, transparent 43px, var(--line) 43px, var(--line) 44px);
+  background-position: 0 30px;
+  font-size: 31px; line-height: 44px;
+}
+.page::before { /* margin line */
+  content: ''; position: absolute; left: 112px; top: 0; bottom: 0; width: 3px; background: var(--margin); opacity: .8;
+}
+.holes { position: absolute; left: 30px; top: 0; bottom: 0; width: 40px; }
+.holes span { position: absolute; left: 0; width: 34px; height: 34px; border-radius: 50%; background: #d9d4c7; box-shadow: inset 2px 3px 5px rgba(0,0,0,.25); }
+
+h1 { font-family: 'Kalam', cursive; font-weight: 700; font-size: 82px; line-height: 88px; margin: 0; color: var(--ink); }
+.sub { font-size: 34px; color: #555; margin-top: -4px; }
+h2 { font-family: 'Kalam', cursive; font-weight: 700; font-size: 44px; line-height: 44px; margin: 22px 0 8px; display: inline-block; position: relative; }
+h2 .num { display:inline-block; width: 54px; height: 54px; line-height: 50px; text-align:center; border: 3px solid var(--ink); border-radius: 50%; margin-right: 12px; font-size: 34px; transform: rotate(-4deg); }
+.hl { background: linear-gradient(transparent 12%, var(--hl) 12%, var(--hl) 88%, transparent 88%); padding: 0 6px; }
+.red { color: var(--red); font-weight: 700; }
+.green { color: var(--green); font-weight: 700; }
+b { font-weight: 700; }
+code, .code { font-family: 'Kalam', cursive; font-weight: 700; background: rgba(31,58,138,.08); padding: 0 8px; border-radius: 6px; font-size: 29px; }
+.box { border: 3.5px solid var(--ink); border-radius: 18px 24px 16px 26px / 24px 16px 26px 18px; padding: 12px 26px; background: rgba(255,255,255,.55); }
+.box.red { border-color: var(--red); color: var(--ink); }
+.box.green { border-color: var(--green); }
+.box.dash { border-style: dashed; }
+.row { display: flex; gap: 34px; align-items: flex-start; }
+.col { flex: 1; }
+ul { margin: 0; padding-left: 40px; list-style: none; }
+ul li { position: relative; }
+ul li::before { content: '\2022'; position: absolute; left: -28px; color: var(--ink); font-weight: 700; }
+.x li::before { content: 'X'; color: var(--red); font-weight: 700; left: -34px; }
+.ok li::before { content: 'OK'; color: var(--green); font-weight: 700; left: -48px; font-size: 24px; }
+.formula { font-family: 'Kalam', cursive; font-weight: 700; font-size: 40px; text-align: center; margin: 6px 0; }
+.tag { display: inline-block; transform: rotate(-3deg); background: var(--hl); padding: 0 14px; border-radius: 6px; font-weight: 700; }
+.note { color: #6b4a00; }
+.spacer { height: 14px; }
+.footer { text-align:center; margin-top: 20px; color:#555; font-size: 28px; }
+.sticky { position: absolute; background: #ffe88a; padding: 10px 20px; width: 340px; transform: rotate(3deg); box-shadow: 4px 6px 10px rgba(0,0,0,.2); font-size: 29px; line-height: 36px; }
+table { border-collapse: collapse; margin: 6px 0; font-size: 28px; line-height: 38px; }
+td { border: 2.5px solid var(--ink); padding: 2px 16px; }
+td:first-child { font-family:'Kalam'; font-weight:700; font-size: 26px; }
+svg text { font-family: 'Caveat', cursive; }
+</style>
+</head>
+<body>
+<div class="page" id="page">
+  <div class="holes"><span style="top:140px"></span><span style="top:760px"></span><span style="top:1380px"></span><span style="top:2000px"></span></div>
+
+  <h1>Multi-Agent Orchestration</h1>
+  <div class="sub">CCAR-F &nbsp;&middot;&nbsp; Domain 1 &nbsp;&middot;&nbsp; Task 1.2 &nbsp;&middot;&nbsp; <span class="tag">hub-and-spoke is THE pattern</span></div>
+
+  <div class="spacer"></div>
+  <h2><span class="num">1</span>What is it? (in plain words)</h2>
+  <div class="row">
+    <div class="col">
+      <ul>
+        <li>Several Claude agents working on <b>one big task</b>.</li>
+        <li>A <span class="hl">coordinator</span> splits the task up. <span class="hl">Subagents</span> each do one part (search, read documents, write...).</li>
+        <li>Think <b>head chef + station cooks</b>. Cooks never shout across the kitchen: every order goes <b>through the chef</b>.</li>
+      </ul>
+    </div>
+    <div class="box" style="width: 470px; margin-top: 8px;">
+      <div class="formula" style="font-size:34px; line-height:44px;">Coordinator =<br>split + delegate<br>+ check + combine</div>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+  <h2><span class="num">2</span>Hub-and-spoke</h2>
+  <svg width="1280" height="440" viewBox="0 0 1280 440">
+    <defs>
+      <filter id="wobble"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="5"/></filter>
+      <marker id="ah" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M1 1 L10 6 L1 11" fill="none" stroke="#1f3a8a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></marker>
+      <marker id="ahr" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M1 1 L10 6 L1 11" fill="none" stroke="#c0262d" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></marker>
+    </defs>
+    <g filter="url(#wobble)" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke-width="4">
+      <circle cx="640" cy="235" r="104" stroke="#1f3a8a" fill="#fff9c4"/>
+      <rect x="40" y="130" width="300" height="90" rx="16" stroke="#1f3a8a" fill="rgba(255,255,255,.6)"/>
+      <rect x="40" y="300" width="300" height="90" rx="16" stroke="#1f3a8a" fill="rgba(255,255,255,.6)"/>
+      <rect x="940" y="130" width="300" height="90" rx="16" stroke="#1f3a8a" fill="rgba(255,255,255,.6)"/>
+      <rect x="940" y="300" width="300" height="90" rx="16" stroke="#1f3a8a" fill="rgba(255,255,255,.6)"/>
+      <path d="M345 185 L528 208" stroke="#1d7a46" marker-start="url(#ah)" marker-end="url(#ah)"/>
+      <path d="M345 330 L540 282" stroke="#1d7a46" marker-start="url(#ah)" marker-end="url(#ah)"/>
+      <path d="M935 185 L752 208" stroke="#1d7a46" marker-start="url(#ah)" marker-end="url(#ah)"/>
+      <path d="M935 330 L740 282" stroke="#1d7a46" marker-start="url(#ah)" marker-end="url(#ah)"/>
+      <path d="M200 124 C 300 30, 980 30, 1090 124" stroke="#c0262d" stroke-dasharray="3 12" marker-end="url(#ahr)"/>
+      <path d="M620 18 L660 52 M660 18 L620 52" stroke="#c0262d" stroke-width="6"/>
+    </g>
+    <g font-size="34" fill="#1f3a8a" text-anchor="middle">
+      <text x="640" y="232" font-weight="700" font-size="27">COORDINATOR</text>
+      <text x="640" y="268" font-size="26" fill="#555">(the hub)</text>
+      <text x="190" y="185" font-weight="700">web search</text>
+      <text x="190" y="355" font-weight="700">document analysis</text>
+      <text x="1090" y="185" font-weight="700">synthesis</text>
+      <text x="1090" y="355" font-weight="700">report writer</text>
+      <text x="640" y="95" fill="#c0262d" font-size="32">no direct talking between subagents!</text>
+      <text x="640" y="425" font-size="30" fill="#1d7a46">every message goes in and out of the hub</text>
+    </g>
+  </svg>
+  <div class="box">
+    <b>Why one hub?</b> &nbsp;<span class="hl">Observability</span> (log everything in one place) &nbsp;&bull;&nbsp; <span class="hl">consistent error handling</span> &nbsp;&bull;&nbsp; <span class="hl">controlled information flow</span> (the coordinator decides who sees what).
+  </div>
+
+  <div class="spacer"></div>
+  <h2><span class="num">3</span>Isolation: the big one</h2>
+  <div class="box red">
+    A subagent starts <span class="red">BLANK</span>. It does <b>not</b> inherit:
+    <ul>
+      <li>the coordinator's conversation history</li>
+      <li>the coordinator's system prompt</li>
+      <li>other subagents' results</li>
+      <li>any shared memory (and a 2nd run knows nothing of the 1st)</li>
+    </ul>
+    <span class="hl">So put EVERYTHING it needs in ITS prompt.</span> Output wrong or thin? <b>Blame the origin, not the output</b>: check what the coordinator gave it.
+  </div>
+
+  <div class="spacer"></div>
+  <h2><span class="num">4</span>The coordinator's 4 jobs</h2>
+  <div class="row">
+    <div class="col box">
+      <b>1. Dynamic selection</b><br>Invoke only the subagents the query needs. A simple fact needs only web search.
+    </div>
+    <div class="col box">
+      <b>2. Scope partitioning</b><br>Give each subagent <i>different</i> subtopics or source types. No overlap.
+    </div>
+  </div>
+  <div class="row" style="margin-top:12px">
+    <div class="col box">
+      <b>3. Iterative refinement</b><br>Check the draft for gaps, re-delegate a <i>targeted</i> query, re-check. Repeat.
+    </div>
+    <div class="col box">
+      <b>4. Central routing</b><br>All communication runs through the coordinator.
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+  <h2><span class="num">5</span>The narrow decomposition failure</h2>
+  <div class="box dash">
+    <span class="hl">A subtopic nobody is assigned never gets researched.</span><br>
+    Café costs split into only <i>ingredients + rent</i> &rarr; the report misses wages, energy, insurance. <b>Every subagent did its job.</b><br>
+    Missing whole topics (<b>scope</b>) &rarr; suspect the <span class="red">decomposition</span>. Thin section (<b>depth</b>) &rarr; check that subagent's prompt and tools.
+  </div>
+
+  <div class="spacer"></div>
+  <h2><span class="num">6</span>Exam traps</h2>
+  <div class="box red">
+    <ul class="x">
+      <li><b>Blaming a downstream subagent</b> for a gap the coordinator's decomposition caused.</li>
+      <li><b>Assuming shared memory</b> or inherited history.</li>
+      <li><b>Direct subagent-to-subagent messaging</b> as an "efficiency" fix.</li>
+      <li><b>Full pipeline for every query</b> + caching unused results to save cost. Extra runs still cost latency and API calls.</li>
+    </ul>
+  </div>
+  <div class="box dash" style="margin-top:12px">
+    <b>Current state:</b> in Claude Code a subagent <i>can</i> spawn subagents (up to 3 layers). "Never" is an exam simplification. The exam keys <span class="hl">hub-and-spoke</span>.
+  </div>
+
+  <div class="footer">Memory trick: &nbsp; <b>"everything through the chef, and tell the cooks everything"</b></div>
+</div>
+</body>
+</html>

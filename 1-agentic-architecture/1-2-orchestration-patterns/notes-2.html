@@ -1,0 +1,159 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+@font-face { font-family: 'Caveat'; font-weight: 400; src: url('../../assets/fonts/caveat-latin-400-normal.woff2'); }
+@font-face { font-family: 'Caveat'; font-weight: 700; src: url('../../assets/fonts/caveat-latin-700-normal.woff2'); }
+@font-face { font-family: 'Kalam'; font-weight: 400; src: url('../../assets/fonts/kalam-latin-400-normal.woff2'); }
+@font-face { font-family: 'Kalam'; font-weight: 700; src: url('../../assets/fonts/kalam-latin-700-normal.woff2'); }
+
+:root {
+  --ink: #1f3a8a;
+  --red: #c0262d;
+  --green: #1d7a46;
+  --hl: #fff176;
+  --paper: #fdfbf2;
+  --line: #bcd3ee;
+  --margin: #e88a8a;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: #d9d4c7; font-family: 'Caveat', cursive; color: var(--ink); }
+.page {
+  width: 1500px; margin: 0 auto; padding: 60px 70px 50px 150px; position: relative;
+  background-color: var(--paper);
+  background-image: repeating-linear-gradient(to bottom, transparent 0, transparent 43px, var(--line) 43px, var(--line) 44px);
+  background-position: 0 30px;
+  font-size: 31px; line-height: 44px;
+}
+.page::before { /* margin line */
+  content: ''; position: absolute; left: 112px; top: 0; bottom: 0; width: 3px; background: var(--margin); opacity: .8;
+}
+.holes { position: absolute; left: 30px; top: 0; bottom: 0; width: 40px; }
+.holes span { position: absolute; left: 0; width: 34px; height: 34px; border-radius: 50%; background: #d9d4c7; box-shadow: inset 2px 3px 5px rgba(0,0,0,.25); }
+
+h1 { font-family: 'Kalam', cursive; font-weight: 700; font-size: 82px; line-height: 88px; margin: 0; color: var(--ink); }
+.sub { font-size: 34px; color: #555; margin-top: -4px; }
+h2 { font-family: 'Kalam', cursive; font-weight: 700; font-size: 44px; line-height: 44px; margin: 22px 0 8px; display: inline-block; position: relative; }
+h2 .num { display:inline-block; width: 54px; height: 54px; line-height: 50px; text-align:center; border: 3px solid var(--ink); border-radius: 50%; margin-right: 12px; font-size: 34px; transform: rotate(-4deg); }
+.hl { background: linear-gradient(transparent 12%, var(--hl) 12%, var(--hl) 88%, transparent 88%); padding: 0 6px; }
+.red { color: var(--red); font-weight: 700; }
+.green { color: var(--green); font-weight: 700; }
+b { font-weight: 700; }
+code, .code { font-family: 'Kalam', cursive; font-weight: 700; background: rgba(31,58,138,.08); padding: 0 8px; border-radius: 6px; font-size: 29px; }
+.box { border: 3.5px solid var(--ink); border-radius: 18px 24px 16px 26px / 24px 16px 26px 18px; padding: 12px 26px; background: rgba(255,255,255,.55); }
+.box.red { border-color: var(--red); color: var(--ink); }
+.box.green { border-color: var(--green); }
+.box.dash { border-style: dashed; }
+.row { display: flex; gap: 34px; align-items: flex-start; }
+.col { flex: 1; }
+ul { margin: 0; padding-left: 40px; list-style: none; }
+ul li { position: relative; }
+ul li::before { content: '\2022'; position: absolute; left: -28px; color: var(--ink); font-weight: 700; }
+.x li::before { content: 'X'; color: var(--red); font-weight: 700; left: -34px; }
+.ok li::before { content: 'OK'; color: var(--green); font-weight: 700; left: -48px; font-size: 24px; }
+.formula { font-family: 'Kalam', cursive; font-weight: 700; font-size: 40px; text-align: center; margin: 6px 0; }
+.tag { display: inline-block; transform: rotate(-3deg); background: var(--hl); padding: 0 14px; border-radius: 6px; font-weight: 700; }
+.note { color: #6b4a00; }
+.spacer { height: 14px; }
+.footer { text-align:center; margin-top: 20px; color:#555; font-size: 28px; }
+.sticky { position: absolute; background: #ffe88a; padding: 10px 20px; width: 340px; transform: rotate(3deg); box-shadow: 4px 6px 10px rgba(0,0,0,.2); font-size: 29px; line-height: 36px; }
+table { border-collapse: collapse; margin: 6px 0; font-size: 28px; line-height: 38px; }
+td { border: 2.5px solid var(--ink); padding: 2px 16px; }
+td:first-child { font-family:'Kalam'; font-weight:700; font-size: 26px; }
+svg text { font-family: 'Caveat', cursive; }
+</style>
+</head>
+<body>
+<div class="page" id="page">
+  <div class="holes"><span style="top:140px"></span><span style="top:760px"></span><span style="top:1380px"></span></div>
+
+  <h1>Orchestration in Practice</h1>
+  <div class="sub">CCAR-F &nbsp;&middot;&nbsp; Task 1.2 &nbsp;&middot;&nbsp; page 2 &nbsp;&middot;&nbsp; <span class="tag">what the examples show you</span></div>
+
+  <div class="spacer"></div>
+  <h2><span class="num">1</span>A subagent is just a fresh loop <span style="font-size:30px">(example 1)</span></h2>
+  <div class="box">
+    <code>run_agent(system, task)</code> builds its <b>own</b> messages list holding <b>only the task</b>. That is why it knows nothing else.
+  </div>
+  <table style="width:100%; margin-top:10px">
+    <tr style="background:rgba(31,58,138,.08)"><td>Run</td><td>What the coordinator did</td><td>Subagent says</td></tr>
+    <tr><td>A</td><td>forgot to pass the fact</td><td><span class="red">"I don't have that information."</span></td></tr>
+    <tr><td>B</td><td>put the fact in the prompt</td><td><span class="green">uses the fact</span></td></tr>
+    <tr><td>C</td><td>a brand-new invocation</td><td><span class="red">forgot run B</span> (no shared memory)</td></tr>
+  </table>
+
+  <div class="spacer"></div>
+  <h2><span class="num">2</span>The message flow <span style="font-size:30px">(example 2)</span></h2>
+  <div class="box" style="font-family:'Kalam',cursive; font-size:27px; line-height:38px;">
+    user &rarr; <b>coordinator</b><br>
+    <b>coordinator</b> &rarr; web_search &rarr; <b>coordinator</b> &nbsp;<span class="note">(findings come back)</span><br>
+    <b>coordinator</b> &rarr; invoices &rarr; <b>coordinator</b><br>
+    <b>coordinator</b> &rarr; synthesis <span class="note">(BOTH findings pasted into its prompt)</span> &rarr; <b>coordinator</b><br>
+    <b>coordinator</b> &rarr; user
+  </div>
+  <div class="row" style="margin-top:12px">
+    <div class="col box green">Hops that bypass the coordinator: <b>0</b>. Always.</div>
+    <div class="col box">Synthesis only knows the search results because the coordinator <b>pasted them in</b>.</div>
+  </div>
+
+  <div class="spacer"></div>
+  <h2><span class="num">3</span>Blame the origin <span style="font-size:30px">(example 3)</span></h2>
+  <table style="width:100%">
+    <tr style="background:rgba(192,38,45,.10)"><td>Coordinator</td><td>Subtopics assigned</td><td>Report misses</td><td>Root cause</td></tr>
+    <tr><td>narrow</td><td>ingredients, rent (2 of 6 areas)</td><td>staff, energy, equipment, insurance</td><td><span class="red">decomposition</span></td></tr>
+    <tr><td>broad</td><td>6 to 8 subtopics, whole topic</td><td>nothing</td><td>none</td></tr>
+  </table>
+  <div class="box dash" style="margin-top:10px">
+    Better queries or a smarter synthesis step <b>cannot</b> fix an area no subagent was ever given.
+  </div>
+
+  <div class="spacer"></div>
+  <h2><span class="num">4</span>The refinement loop <span style="font-size:30px">(example 4)</span></h2>
+  <svg width="1280" height="300" viewBox="0 0 1280 300">
+    <defs>
+      <filter id="wobble"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="5"/></filter>
+      <marker id="ah" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M1 1 L10 6 L1 11" fill="none" stroke="#1f3a8a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></marker>
+      <marker id="ahr" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M1 1 L10 6 L1 11" fill="none" stroke="#c0262d" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></marker>
+    </defs>
+    <g filter="url(#wobble)" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke-width="4">
+      <rect x="10" y="120" width="200" height="90" rx="16" stroke="#1f3a8a" fill="rgba(255,255,255,.6)"/>
+      <rect x="270" y="120" width="260" height="90" rx="16" stroke="#1f3a8a" fill="rgba(255,255,255,.6)"/>
+      <rect x="590" y="120" width="230" height="90" rx="16" stroke="#1f3a8a" fill="rgba(255,255,255,.6)"/>
+      <path d="M910 165 L1000 105 L1090 165 L1000 225 Z" stroke="#1f3a8a" fill="#fff9c4"/>
+      <rect x="1120" y="120" width="150" height="90" rx="16" stroke="#1d7a46" fill="rgba(200,240,210,.55)"/>
+      <path d="M212 165 L266 165" stroke="#1f3a8a" marker-end="url(#ah)"/>
+      <path d="M532 165 L586 165" stroke="#1f3a8a" marker-end="url(#ah)"/>
+      <path d="M822 165 L906 165" stroke="#1f3a8a" marker-end="url(#ah)"/>
+      <path d="M1092 165 L1116 165" stroke="#1d7a46" marker-end="url(#ah)"/>
+      <path d="M1000 100 C 1000 10, 400 10, 400 116" stroke="#c0262d" stroke-dasharray="3 12" marker-end="url(#ahr)"/>
+    </g>
+    <g font-size="30" fill="#1f3a8a" text-anchor="middle">
+      <text x="110" y="158" font-weight="700">1 decompose</text><text x="110" y="192" font-size="26">5+ subtopics</text>
+      <text x="400" y="158" font-weight="700">2 delegate</text><text x="400" y="192" font-size="26">web + documents</text>
+      <text x="705" y="158" font-weight="700">3 evaluate</text><text x="705" y="192" font-size="26">coverage per subtopic</text>
+      <text x="1000" y="172" font-weight="700" font-size="32">gaps?</text>
+      <text x="1195" y="158" font-weight="700" fill="#1d7a46">4 write</text><text x="1195" y="192" font-size="26" fill="#1d7a46">the report</text>
+      <text x="700" y="72" fill="#c0262d" font-size="28">yes: re-delegate a TARGETED query</text><text x="700" y="102" fill="#c0262d" font-size="24">(stop after 3 rounds at most)</text>
+      <text x="1103" y="262" fill="#1d7a46" font-size="28">no gaps</text>
+    </g>
+  </svg>
+  <div class="box">
+    Ratings: <span class="green">well covered</span> (how it works <b>and</b> a figure) &bull; partially covered &bull; <span class="red">missing</span>. The loop ends on <b>sufficient coverage</b>; the max rounds is only a <span class="hl">safety bound</span> (like the cap in 1.1).
+  </div>
+
+  <div class="spacer"></div>
+  <h2><span class="num">5</span>Invoke only what the query needs <span style="font-size:30px">(example 5)</span></h2>
+  <table style="width:100%">
+    <tr style="background:rgba(31,58,138,.08)"><td>Query</td><td>Subagents invoked</td></tr>
+    <tr><td>"Opening hours of the recycling centre?"</td><td><span class="green">web search only</span> (1 of 3)</td></tr>
+    <tr><td>"Report on what drives our costs"</td><td>web + documents + synthesis (3 of 3)</td></tr>
+  </table>
+  <div class="box dash" style="margin-top:10px">
+    Full pipeline for every query + caching the unused output? Still <span class="red">extra latency and API calls</span>. Never trust a plan blindly: unknown subagent names &rarr; fall back safely.
+  </div>
+
+  <div class="footer">Run the examples in order: &nbsp; <b>01 &rarr; 02 &rarr; 03 &rarr; 04 &rarr; 05</b> &nbsp;(<code>cd examples</code> first)</div>
+</div>
+</body>
+</html>
